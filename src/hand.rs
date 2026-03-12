@@ -1,3 +1,7 @@
+use std::str::FromStr;
+
+use arrayvec::ArrayVec;
+
 use super::*;
 
 pub enum Direction {
@@ -9,6 +13,34 @@ pub enum Direction {
 //struct SpecialHand {
 //    tiles: [Tile; 14]
 //}
+
+/// a grouped representation of tiles without information of the game state
+pub struct Hand {
+    tiles: ArrayVec<Tile, 14>,
+    sets: ArrayVec<Set, 4>,
+    flowers: ArrayVec<Tile, 8>,
+}
+
+pub struct Player {
+    wind: Direction,
+    seat: Direction,
+    hand: Hand,
+}
+
+pub struct Game {
+    players: [Player; 4],
+    wind: Direction,
+    round: u32,
+}
+
+// drdgdw1c1c1c4c9s[1s1s1s](1s2s3s)f1f2f3f4f5f6f7f8
+impl FromStr for Hand {
+    type Err = ();
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        todo!("defined mahjong notation parser")
+    }
+}
 
 pub struct WinningHand {
     pub seat: Direction,

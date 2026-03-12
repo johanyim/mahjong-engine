@@ -1,17 +1,14 @@
 mod hand;
 pub use hand::*;
 mod set;
+use itertools::Itertools;
+use rand::seq::SliceRandom;
 pub use set::*;
 mod tile;
 pub use tile::*;
 
 fn set(s: &str) -> Set {
     todo!();
-}
-
-mod tests {
-    #[test]
-    fn set_testing() {}
 }
 
 fn main() {
@@ -43,5 +40,22 @@ fn main() {
         pair: [Tile::Characters(9), Tile::Characters(9)],
     };
 
-    println!("{:?}", hand1.score());
+    let mut tiles = (4..=39)
+        .chain(68..=103)
+        .chain(132..=167)
+        .chain(192..=219)
+        .chain(224..=231)
+        .collect::<Vec<u8>>();
+    tiles.shuffle(&mut rand::rng());
+    let hand = tiles.into_iter().take(14).sorted();
+
+    for n in hand {
+        if let Ok(t) = Tile::try_from(n) {
+            println!("{n: >4} = {t}");
+        } else {
+            println!("-");
+        }
+    }
+
+    //println!("{:?}", hand1.score());
 }
