@@ -11,6 +11,41 @@ pub enum Set {
     //Seong(Tile, Tile, Tile),
 }
 
+struct Pong([Tile; 3]);
+impl Pong {
+    pub fn new(tiles: [Tile; 3]) -> Result<Self, &'static str> {
+        if tiles.iter().all(|t| *t == tiles[0]) {
+            Ok(Self(tiles))
+        } else {
+            Err("Invalid pong")
+        }
+    }
+}
+
+//struct Seong([Tile; 3]);
+//impl Seong {
+//    pub fn new(mut tiles: [Tile; 3]) -> Result<Self, &'static str> {
+//        tiles.sort();
+//
+//        if tiles[0].is_next_of(tiles[1]) && tiles[1].is_next_of(tiles[2]) {
+//            Ok(Self(tiles))
+//        } else {
+//            Err("Invalid seong")
+//        }
+//    }
+//}
+//
+//struct Pong([Tile; 3]);
+//impl Pong {
+//    pub fn new(tiles: [Tile; 3]) -> Result<Self, &'static str> {
+//        if tiles.iter().all(|t| *t == tiles[0]) {
+//            Ok(Self(tiles))
+//        } else {
+//            Err("Invalid pong")
+//        }
+//    }
+//}
+
 pub struct SetIter {
     tiles: [Option<Tile>; 4],
     index: usize,

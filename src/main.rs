@@ -1,4 +1,6 @@
 mod hand;
+use std::collections::VecDeque;
+
 pub use hand::*;
 mod set;
 use itertools::Itertools;
@@ -26,6 +28,7 @@ fn main() {
                 Tile::Characters(5),
                 Tile::Characters(5),
             ]),
+            // should be an invalid state
             Set::Pong([
                 Tile::Characters(1),
                 Tile::Characters(2),
@@ -47,9 +50,9 @@ fn main() {
         .chain(224..=231)
         .collect::<Vec<u8>>();
     tiles.shuffle(&mut rand::rng());
-    let hand = tiles.into_iter().take(14).sorted();
+    let tiles = tiles.into_iter().collect::<VecDeque<u8>>();
 
-    for n in hand {
+    for n in tiles.into_iter().take(14).sorted() {
         if let Ok(t) = Tile::try_from(n) {
             println!("{n: >4} = {t}");
         } else {

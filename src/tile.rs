@@ -24,6 +24,14 @@ pub enum Tile {
     FlowerB(u8), // F[4-7] 4
 }
 
+impl PartialOrd for Tile {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        // numbers of the same suit can be ordered
+        // otherwise not
+        todo!("partial_cmp is not yet defined for Tile")
+    }
+}
+
 #[derive(PartialEq, Eq)]
 pub enum Suit {
     Bamboo,
